@@ -1,18 +1,17 @@
-using System;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace RendererPixelart.Effect
+namespace EffectPixelart.Effect
 {
     // [System.Serializable]
     public class PixelartRenderFeature : ScriptableRendererFeature
     {
         private PixelartRenderPass m_PixelartPass;
 
-        private RTHandle m_tmpColorRT;
+        private RTHandle m_TmpTexRT;
 
-        private const string m_tmpColorTexName = "_TempTexture";
+        private const string m_TmpTexName = "_TempTexture";
 
         /// <inheritdoc/>
         public override void Create()
@@ -35,9 +34,9 @@ namespace RendererPixelart.Effect
             descriptor.depthBufferBits = 0;
 
             // Setting up tmp color RT 
-            RenderingUtils.ReAllocateIfNeeded(ref m_tmpColorRT, descriptor, FilterMode.Bilinear, TextureWrapMode.Clamp, name: m_tmpColorTexName);
+            RenderingUtils.ReAllocateIfNeeded(ref m_TmpTexRT, descriptor, FilterMode.Bilinear, TextureWrapMode.Clamp, name: m_TmpTexName);
 
-            m_PixelartPass.SetTarget(renderer.cameraColorTargetHandle, m_tmpColorRT);
+            m_PixelartPass.SetRenderTargets(renderer.cameraColorTargetHandle, m_TmpTexRT);
         }
 
         // Here you can inject one or multiple render passes in the renderer.
@@ -55,7 +54,7 @@ namespace RendererPixelart.Effect
 
         protected override void Dispose(bool disposing)
         {
-            m_tmpColorRT?.Release();
+            m_TmpTexRT?.Release();
         }
     }
 }

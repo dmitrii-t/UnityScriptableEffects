@@ -56,6 +56,7 @@
      <Folder Include="Assets\Scripts" />
      <Folder Include="Assets\ExampleAssets\Textures\Props\Jigsaw" />
      <Folder Include="Assets\ExampleAssets\Textures\Drywall" />
+     <Folder Include="Assets\EffectPixelart\Scenes\EffectPixelartDemo" />
      <Folder Include="Assets\ExampleAssets\Textures\Plastic" />
      <Folder Include="Assets\EffectPixelart\Scenes" />
      <Folder Include="Assets\Presets" />

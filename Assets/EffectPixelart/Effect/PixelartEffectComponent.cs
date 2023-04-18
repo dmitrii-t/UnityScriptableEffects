@@ -1,8 +1,7 @@
-using System;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace RendererPixelart.Effect
+namespace EffectPixelart.Effect
 {
     [System.Serializable, VolumeComponentMenuForRenderPipeline("Custom/PixelartEffectComponent", typeof(UniversalRenderPipeline))]
     public class PixelartEffectComponent : VolumeComponent, IPostProcessComponent

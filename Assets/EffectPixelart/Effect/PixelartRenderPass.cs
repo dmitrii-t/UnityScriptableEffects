@@ -2,27 +2,24 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace RendererPixelart.Effect
+namespace EffectPixelart.Effect
 {
     // [System.Serializable]
     public class PixelartRenderPass : ScriptableRenderPass
     {
-        private Material m_PixelartMaterial;
-
-        private RenderTextureDescriptor m_Descriptor;
-
-        private RTHandle m_CamColorRT;
-        private RTHandle m_TmpColorRT;
-
         private readonly int m_MainTexID = Shader.PropertyToID("_MainTex");
 
         private readonly int m_PixelRateID = Shader.PropertyToID("_PixelRate");
 
+        private RTHandle m_CamTexRT;
+        
+        private RTHandle m_TmpTexRT;
 
-        public void SetTarget(RTHandle cameraColorRT, RTHandle tmpColorRT)
+        
+        public void SetRenderTargets(RTHandle camTexRT, RTHandle tmpTexRT)
         {
-            m_CamColorRT = cameraColorRT;
-            m_TmpColorRT = tmpColorRT;
+            m_CamTexRT = camTexRT;
+            m_TmpTexRT = tmpTexRT;
         }
 
         // Here you can implement the rendering logic.
@@ -54,12 +51,12 @@ namespace RendererPixelart.Effect
                     {
                         // setting the shader properties
                         material.SetFloat(m_PixelRateID, pixelartEffect.m_PixelRate.value);
-                        material.SetTexture(m_MainTexID, m_CamColorRT);
+                        material.SetTexture(m_MainTexID, m_CamTexRT);
 
-                        Blitter.BlitCameraTexture(commandBuffer, m_CamColorRT, m_TmpColorRT, RenderBufferLoadAction.DontCare,
+                        Blitter.BlitCameraTexture(commandBuffer, m_CamTexRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
                                                   RenderBufferStoreAction.Store, material, 0);
 
-                        Blitter.BlitCameraTexture(commandBuffer, m_TmpColorRT, m_CamColorRT);
+                        Blitter.BlitCameraTexture(commandBuffer, m_TmpTexRT, m_CamTexRT);
 
                         // execute the command buffer
                         context.ExecuteCommandBuffer(commandBuffer);
