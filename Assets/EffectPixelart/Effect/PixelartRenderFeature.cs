@@ -7,7 +7,7 @@ namespace EffectPixelart.Effect
     // [System.Serializable]
     public class PixelartRenderFeature : ScriptableRendererFeature
     {
-        private PixelartRenderPass m_PixelartPass;
+        private PixelartPass m_PixelartPass;
 
         private RTHandle m_TmpTexRT;
 
@@ -17,7 +17,7 @@ namespace EffectPixelart.Effect
         public override void Create()
         {
             // we configure where the render pass should be injected.
-            m_PixelartPass = new PixelartRenderPass();
+            m_PixelartPass = new PixelartPass();
             m_PixelartPass.renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
         }
 
@@ -34,7 +34,7 @@ namespace EffectPixelart.Effect
             descriptor.depthBufferBits = 0;
 
             // Setting up tmp color RT 
-            RenderingUtils.ReAllocateIfNeeded(ref m_TmpTexRT, descriptor, FilterMode.Bilinear, TextureWrapMode.Clamp, name: m_TmpTexName);
+            RenderingUtils.ReAllocateIfNeeded(ref m_TmpTexRT, descriptor, FilterMode.Point, TextureWrapMode.Clamp, name: m_TmpTexName);
 
             m_PixelartPass.SetRenderTargets(renderer.cameraColorTargetHandle, m_TmpTexRT);
         }

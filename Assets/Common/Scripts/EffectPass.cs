@@ -2,20 +2,19 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace EffectPixelart.Effect
+namespace Common.Scripts
 {
-    // [System.Serializable]
-    public class PixelartRenderPass : ScriptableRenderPass
+    public abstract class EffectPass<T> : ScriptableRenderPass where T : Effect
     {
-        private readonly int m_MainTexID = Shader.PropertyToID("_MainTex");
+        protected RTHandle m_CamTexRT;
 
-        private readonly int m_PixelRateID = Shader.PropertyToID("_PixelRate");
+        protected RTHandle m_TmpTexRT;
 
-        private RTHandle m_CamTexRT;
+
+        public abstract string GetPassName();
         
-        private RTHandle m_TmpTexRT;
+        public abstract void SetMaterialProperties(T effect, Material material);
 
-        
         public void SetRenderTargets(RTHandle camTexRT, RTHandle tmpTexRT)
         {
             m_CamTexRT = camTexRT;
@@ -28,6 +27,9 @@ namespace EffectPixelart.Effect
         // You don't have to call ScriptableRenderContext.submit, the render pipeline will call it at specific points in the pipeline.
         public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
         {
+            Checks.CheckNotNull(m_CamTexRT, "m_CamTexRT is null");
+            Checks.CheckNotNull(m_TmpTexRT, "m_TmpTexRT is null");
+
             // we only want to run this pass on the main camera
             if (renderingData.cameraData.cameraType != CameraType.Game)
             {
@@ -35,23 +37,22 @@ namespace EffectPixelart.Effect
             }
 
             var stack = VolumeManager.instance.stack;
-            var pixelartEffect = stack.GetComponent<PixelartEffectComponent>();
+            var effect = stack.GetComponent<T>();
 
-            if (pixelartEffect.IsActive())
+            if (effect.IsActive())
             {
                 // to perform operations on the textures, we need to use a command buffer. CB allows queuing up commands to modify textures
                 var commandBuffer = CommandBufferPool.Get(name: "PixelartPass");
                 commandBuffer.Clear();
 
-                using (new ProfilingScope(commandBuffer, new ProfilingSampler("Pixelart Render Pass")))
+                using (new ProfilingScope(commandBuffer, new ProfilingSampler(GetPassName())))
                 {
-                    var material = pixelartEffect.m_Material.value;
+                    var material = effect.m_Material.value;
 
                     if (material != null)
                     {
                         // setting the shader properties
-                        material.SetFloat(m_PixelRateID, pixelartEffect.m_PixelRate.value);
-                        material.SetTexture(m_MainTexID, m_CamTexRT);
+                        SetMaterialProperties(effect, material);
 
                         Blitter.BlitCameraTexture(commandBuffer, m_CamTexRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
                                                   RenderBufferStoreAction.Store, material, 0);
@@ -60,6 +61,7 @@ namespace EffectPixelart.Effect
 
                         // execute the command buffer
                         context.ExecuteCommandBuffer(commandBuffer);
+                        
                         commandBuffer.Clear();
                     }
 
