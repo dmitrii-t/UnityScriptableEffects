@@ -32,13 +32,13 @@ MonoBehaviour:
     m_Value: {fileID: 2100000, guid: 79069b5bcee6cfe48a0395c122024da5, type: 2}
   m_Pattern:
     m_OverrideState: 1
-    m_Value: {fileID: 2800000, guid: cd666aa6a80900749b5837a3860df738, type: 3}
+    m_Value: {fileID: 2800000, guid: e8752edd46b48e24b855830da4f4887c, type: 3}
   m_Primary:
     m_OverrideState: 1
-    m_Value: {fileID: 11700000, guid: 068e4717ac579104a8db98c2020c619d, type: 2}
+    m_Value: {fileID: 11700000, guid: bd5c595d926e7f145b84a3789723905e, type: 2}
   m_Secondary:
     m_OverrideState: 1
-    m_Value: {fileID: 11700000, guid: cabae8649864aae46827c735021ba7a3, type: 2}
+    m_Value: {fileID: 11700000, guid: d13f51738e40e524baca1d1e9e8e2d2c, type: 2}
   m_Remap:
-    m_OverrideState: 0
+    m_OverrideState: 1
     m_Value: {x: 0, y: 1}

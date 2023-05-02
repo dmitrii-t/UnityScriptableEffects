@@ -4,3 +4,6 @@ Logs/
 Temp/
 UserSettings/
 obj/
+
+# Third party packages
+**/Mech_Constructor_Humanoids*
