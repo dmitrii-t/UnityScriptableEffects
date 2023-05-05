@@ -42,3 +42,6 @@ MonoBehaviour:
   m_Remap:
     m_OverrideState: 1
     m_Value: {x: 0, y: 1}
+  m_PixelRate:
+    m_OverrideState: 1
+    m_Value: 128

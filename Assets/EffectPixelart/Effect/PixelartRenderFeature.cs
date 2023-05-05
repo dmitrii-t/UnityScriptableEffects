@@ -4,10 +4,9 @@ using UnityEngine.Rendering.Universal;
 
 namespace EffectPixelart.Effect
 {
-    // [System.Serializable]
     public class PixelartRenderFeature : ScriptableRendererFeature
     {
-        private PixelartPass m_PixelartPass;
+        private PixelartEffectPass m_PixelartPass;
 
         private RTHandle m_TmpTexRT;
 
@@ -17,8 +16,7 @@ namespace EffectPixelart.Effect
         public override void Create()
         {
             // we configure where the render pass should be injected.
-            m_PixelartPass = new PixelartPass();
-            m_PixelartPass.renderPassEvent = RenderPassEvent.AfterRenderingOpaques;
+            m_PixelartPass = new PixelartEffectPass();
         }
 
         public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)

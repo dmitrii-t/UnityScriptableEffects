@@ -18,7 +18,7 @@ namespace EffectDithering.Effect
         private readonly int m_SecondaryID = Shader.PropertyToID("_Secondary");
 
         private readonly int m_RemapID = Shader.PropertyToID("_Remap");
-
+        
         public DitheringEffectPass()
         {
             renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;

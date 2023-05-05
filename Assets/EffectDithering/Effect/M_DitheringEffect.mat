@@ -52,7 +52,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats: []
+    m_Floats:
+    - _ColorsNumber: 8
+    - _PixelRate: 64
+    - _PixelRatio: 64
     m_Colors:
     - _MainTexel: {r: 575, g: 356, b: 0, a: 0}
     - _PatternTexel: {r: 4, g: 4, b: 0, a: 0}
