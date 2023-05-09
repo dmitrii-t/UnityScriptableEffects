@@ -6,14 +6,23 @@ namespace Common.Scripts
 {
     public abstract class EffectPass<T> : ScriptableRenderPass where T : Effect
     {
+        private readonly int m_MainTexID = Shader.PropertyToID("_MainTex");
+        
+        private readonly int m_MainTexSizeID = Shader.PropertyToID("_MainTexSize");
+        
         protected RTHandle m_CamTexRT;
 
         protected RTHandle m_TmpTexRT;
 
+        protected abstract string GetPassName();
 
-        public abstract string GetPassName();
-        
-        public abstract void SetMaterialProperties(T effect, Material material);
+        protected void SetMainTextureProperties(Material material)
+        {
+            // main texture
+            material.SetTexture(m_MainTexID, m_CamTexRT);
+            var mainTextureSize = new Vector2(Screen.width, Screen.height);
+            material.SetVector(m_MainTexSizeID, mainTextureSize);
+        }
 
         public void SetRenderTargets(RTHandle camTexRT, RTHandle tmpTexRT)
         {
@@ -25,7 +34,7 @@ namespace Common.Scripts
         // Use <c>ScriptableRenderContext</c> to issue drawing commands or execute command buffers
         // https://docs.unity3d.com/ScriptReference/Rendering.ScriptableRenderContext.html
         // You don't have to call ScriptableRenderContext.submit, the render pipeline will call it at specific points in the pipeline.
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        protected void ExecuteWithMaterial(ScriptableRenderContext context, Material material, ref RenderingData renderingData)
         {
             Checks.CheckNotNull(m_CamTexRT, "m_CamTexRT is null");
             Checks.CheckNotNull(m_TmpTexRT, "m_TmpTexRT is null");
@@ -35,39 +44,31 @@ namespace Common.Scripts
             {
                 return;
             }
+            
+            // to perform operations on the textures, we need to use a command buffer. CB allows queuing up commands to modify textures
+            var commandBuffer = CommandBufferPool.Get(name: "PixelartPass");
+            commandBuffer.Clear();
 
-            var stack = VolumeManager.instance.stack;
-            var effect = stack.GetComponent<T>();
-
-            if (effect.IsActive())
+            using (new ProfilingScope(commandBuffer, new ProfilingSampler(GetPassName())))
             {
-                // to perform operations on the textures, we need to use a command buffer. CB allows queuing up commands to modify textures
-                var commandBuffer = CommandBufferPool.Get(name: "PixelartPass");
-                commandBuffer.Clear();
-
-                using (new ProfilingScope(commandBuffer, new ProfilingSampler(GetPassName())))
+                if (material != null)
                 {
-                    var material = effect.m_Material.value;
+                    // setting the shader properties
+                    // SetMainTextureProperties(effect, material);
 
-                    if (material != null)
-                    {
-                        // setting the shader properties
-                        SetMaterialProperties(effect, material);
+                    Blitter.BlitCameraTexture(commandBuffer, m_CamTexRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
+                                              RenderBufferStoreAction.Store, material, 0);
 
-                        Blitter.BlitCameraTexture(commandBuffer, m_CamTexRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
-                                                  RenderBufferStoreAction.Store, material, 0);
+                    Blitter.BlitCameraTexture(commandBuffer, m_TmpTexRT, m_CamTexRT);
 
-                        Blitter.BlitCameraTexture(commandBuffer, m_TmpTexRT, m_CamTexRT);
+                    // execute the command buffer
+                    context.ExecuteCommandBuffer(commandBuffer);
 
-                        // execute the command buffer
-                        context.ExecuteCommandBuffer(commandBuffer);
-                        
-                        commandBuffer.Clear();
-                    }
-
-                    // release the command buffer
-                    CommandBufferPool.Release(commandBuffer);
+                    commandBuffer.Clear();
                 }
+
+                // release the command buffer
+                CommandBufferPool.Release(commandBuffer);
             }
         }
     }

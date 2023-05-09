@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_PixelartEffect
-  m_Shader: {fileID: -6465566751694194690, guid: 008a1be900366aa42bed763e3f28f544, type: 3}
+  m_Name: Posterizing_M
+  m_Shader: {fileID: -6465566751694194690, guid: 9578d31f228e8b34ba09502be3e03d41, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
   m_ValidKeywords: []
@@ -24,19 +24,7 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 07bf5ce4147eeca4780aea2244098c17, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Pattern:
-        m_Texture: {fileID: 2800000, guid: e72af4ff84f594544b51fb1afa3cde24, type: 3}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Primary:
-        m_Texture: {fileID: 11700000, guid: 068e4717ac579104a8db98c2020c619d, type: 2}
-        m_Scale: {x: 1, y: 1}
-        m_Offset: {x: 0, y: 0}
-    - _Secondary:
-        m_Texture: {fileID: 11700000, guid: cabae8649864aae46827c735021ba7a3, type: 2}
+        m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - unity_Lightmaps:
@@ -53,10 +41,6 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _ColorsNumber: 8
-    - _PixelRate: 128
-    m_Colors:
-    - _MainTexel: {r: 512, g: 512, b: 0, a: 0}
-    - _PatternTexel: {r: 16, g: 16, b: 0, a: 0}
-    - _Remap: {r: 0, g: 1, b: 0, a: 0}
+    - _Posterize: 128
+    m_Colors: []
   m_BuildTextureStacks: []
