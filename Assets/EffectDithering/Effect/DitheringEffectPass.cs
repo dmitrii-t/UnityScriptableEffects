@@ -23,32 +23,38 @@ namespace EffectDithering.Effect
             renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
         }
 
-        protected override string GetPassName() => "Dithering Effect Pass";
+        protected override string GetPassName() => "DitheringEffectPass";
 
 
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        protected override void ExecutePass(DitheringEffectComponent effect, CommandBuffer commandBuffer, ScriptableRenderContext context, ref RenderingData renderingData)
         {
-            var stack = VolumeManager.instance.stack;
-            var effect = stack.GetComponent<DitheringEffectComponent>();
-
-            if (effect.IsActive())
+            var sourceRT = m_CamTexRT;
+            
+            var material = effect.m_DitherMaterial.value;
+            if (material != null)
             {
-                var material = effect.m_DitherMaterial.value;
-                if (material != null)
-                {
-                    SetMainTextureProperties(material);
+                SetMaterialMainTex(material);
                 
-                    var patternTexture = effect.m_Pattern.value;
-                    material.SetTexture(m_PatternID,patternTexture);
-                    var patternTextureSize = new Vector2(effect.m_Pattern.value.width, effect.m_Pattern.value.height);
-                    material.SetVector(m_PatternTexSizeID, patternTextureSize);
+                // Set other shader properties 
+                var patternTexture = effect.m_Pattern.value;
+                material.SetTexture(m_PatternID,patternTexture);
+                var patternTextureSize = new Vector2(effect.m_Pattern.value.width, effect.m_Pattern.value.height);
+                material.SetVector(m_PatternTexSizeID, patternTextureSize);
 
-                    material.SetTexture(m_PrimaryID, effect.m_Primary.value);
-                    material.SetTexture(m_SecondaryID, effect.m_Secondary.value);
-                    material.SetVector(m_RemapID, effect.m_Remap.value);
-                }
+                material.SetTexture(m_PrimaryID, effect.m_Primary.value);
+                material.SetTexture(m_SecondaryID, effect.m_Secondary.value);
+                material.SetVector(m_RemapID, effect.m_Remap.value);
                 
-                ExecuteWithMaterial(context, effect.m_DitherMaterial.value, ref renderingData);
+                // Blit the camera texture to the temporary RT
+                Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
+                                          RenderBufferStoreAction.Store, material, 0);
+
+                sourceRT = m_TmpTexRT;
+                
+                Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_CamTexRT);
+
+                // execute the command buffer
+                context.ExecuteCommandBuffer(commandBuffer);
             }
         }
     }

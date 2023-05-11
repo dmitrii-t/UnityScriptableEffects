@@ -1,4 +1,5 @@
 ### TODO
+* Outlines
 * Dithering
 
 ### DONE

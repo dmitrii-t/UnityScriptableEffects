@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Post-Processing Effect Global Volume Profile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 3632512655158445898}
+--- !u!114 &3632512655158445898
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d79b95c7bf499b80e9d411bbf41085, type: 3}
+  m_Name: OutlineEffectComponent
+  m_EditorClassIdentifier: 
+  active: 1
+  m_DifferenceOfGaussiansMaterial:
+    m_OverrideState: 1
+    m_Value: {fileID: 2100000, guid: 029d29b7d9d979645a073c034f04372a, type: 2}

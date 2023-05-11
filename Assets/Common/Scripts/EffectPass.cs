@@ -15,8 +15,45 @@ namespace Common.Scripts
         protected RTHandle m_TmpTexRT;
 
         protected abstract string GetPassName();
+        
+        protected abstract void ExecutePass(T effect, CommandBuffer commandBuffer, ScriptableRenderContext context, ref RenderingData renderingData);
+        
+        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
+        {
+            Checks.CheckNotNull(m_CamTexRT, "m_CamTexRT is null");
+            Checks.CheckNotNull(m_TmpTexRT, "m_TmpTexRT is null");
 
-        protected void SetMainTextureProperties(Material material)
+            // we only want to run this pass on the main camera
+            if (renderingData.cameraData.cameraType != CameraType.Game)
+            {
+                return;
+            }
+            
+            var stack = VolumeManager.instance.stack;
+            var effect = stack.GetComponent<T>();
+
+            if (effect.IsActive())
+            {
+                // to perform operations on the textures, we need to use a command buffer. CB allows queuing up commands
+                // to modify textures
+                var commandBuffer = CommandBufferPool.Get(name: GetPassName());
+                commandBuffer.Clear();
+
+                using (new ProfilingScope(commandBuffer, new ProfilingSampler(GetPassName())))
+                {
+                    ExecutePass(effect, commandBuffer, context, ref renderingData);
+                    
+                    // never execute the command buffer by default
+                    
+                    commandBuffer.Clear();
+                }
+                
+                // release the command buffer
+                CommandBufferPool.Release(commandBuffer);
+            }
+        }
+        
+        protected void SetMaterialMainTex(Material material)
         {
             // main texture
             material.SetTexture(m_MainTexID, m_CamTexRT);
@@ -28,48 +65,6 @@ namespace Common.Scripts
         {
             m_CamTexRT = camTexRT;
             m_TmpTexRT = tmpTexRT;
-        }
-
-        // Here you can implement the rendering logic.
-        // Use <c>ScriptableRenderContext</c> to issue drawing commands or execute command buffers
-        // https://docs.unity3d.com/ScriptReference/Rendering.ScriptableRenderContext.html
-        // You don't have to call ScriptableRenderContext.submit, the render pipeline will call it at specific points in the pipeline.
-        protected void ExecuteWithMaterial(ScriptableRenderContext context, Material material, ref RenderingData renderingData)
-        {
-            Checks.CheckNotNull(m_CamTexRT, "m_CamTexRT is null");
-            Checks.CheckNotNull(m_TmpTexRT, "m_TmpTexRT is null");
-
-            // we only want to run this pass on the main camera
-            if (renderingData.cameraData.cameraType != CameraType.Game)
-            {
-                return;
-            }
-            
-            // to perform operations on the textures, we need to use a command buffer. CB allows queuing up commands to modify textures
-            var commandBuffer = CommandBufferPool.Get(name: "PixelartPass");
-            commandBuffer.Clear();
-
-            using (new ProfilingScope(commandBuffer, new ProfilingSampler(GetPassName())))
-            {
-                if (material != null)
-                {
-                    // setting the shader properties
-                    // SetMainTextureProperties(effect, material);
-
-                    Blitter.BlitCameraTexture(commandBuffer, m_CamTexRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
-                                              RenderBufferStoreAction.Store, material, 0);
-
-                    Blitter.BlitCameraTexture(commandBuffer, m_TmpTexRT, m_CamTexRT);
-
-                    // execute the command buffer
-                    context.ExecuteCommandBuffer(commandBuffer);
-
-                    commandBuffer.Clear();
-                }
-
-                // release the command buffer
-                CommandBufferPool.Release(commandBuffer);
-            }
         }
     }
 }
