@@ -18,10 +18,10 @@ namespace EffectOutlines.Effect
             ScriptableRenderContext context, ref RenderingData renderingData)
         {
             var sourceRT = m_CamTexRT;
-            
-            var differenceOfGaussiansMaterial = effect.m_DifferenceOfGaussiansMaterial.value;
-            AddDifferenceOfGaussians(ref sourceRT, effect, differenceOfGaussiansMaterial, renderingData, commandBuffer, 
-                                     condition: differenceOfGaussiansMaterial != null);
+
+            var outlinesMaterial = effect.m_OutlinesMaterial.value;
+            AddOutlinesEffect(ref sourceRT, effect, outlinesMaterial, renderingData, commandBuffer,
+                                     condition: outlinesMaterial != null);
 
             // render back to teh camera RT
             if (sourceRT != m_CamTexRT)
@@ -33,16 +33,16 @@ namespace EffectOutlines.Effect
             }
         }
 
-        private bool AddDifferenceOfGaussians(ref RTHandle sourceRT, OutlineEffectComponent effect,
-            Material differenceOfGaussiansMaterial, RenderingData renderingData, CommandBuffer commandBuffer, bool condition)
+        private bool AddOutlinesEffect(ref RTHandle sourceRT, OutlineEffectComponent effect,
+            Material outlinesMaterial, RenderingData renderingData, CommandBuffer commandBuffer, bool condition)
         {
             if (condition)
             {
-                SetMaterialMainTex(differenceOfGaussiansMaterial);
-
+                SetMaterialMainTex(outlinesMaterial);
+                
                 // Blit the camera texture to the temporary RT
                 Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
-                                          RenderBufferStoreAction.Store, differenceOfGaussiansMaterial, 0);
+                                          RenderBufferStoreAction.Store, outlinesMaterial, 0);
 
                 sourceRT = m_TmpTexRT;
 

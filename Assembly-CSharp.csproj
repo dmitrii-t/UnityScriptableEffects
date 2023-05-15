@@ -50,6 +50,7 @@
      <Compile Include="Assets\EffectDithering\Effect\DitheringEffectComponent.cs" />
      <Compile Include="Assets\EffectDithering\Effect\DitheringRenderFeature.cs" />
      <Compile Include="Assets\Common\Scripts\EffectPass.cs" />
+     <Compile Include="Assets\EffectOutlines\Effect\OutlinesConvolution\OutlinesConvolutionPartial.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartRenderFeature.cs" />
      <Compile Include="Assets\Common\Scripts\Checks.cs" />
@@ -64,6 +65,7 @@
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_Diffuse" />
      <Folder Include="Assets\EffectPixelart\Textures" />
      <Folder Include="Assets\EffectDithering\Materials" />
+     <None Include="Assets\EffectOutlines\Effect\DifferenceOfGaussians\DifferenceOfGaussians.hlsl" />
      <Folder Include="Assets\Materials" />
      <Folder Include="Assets\EffectPixelart" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Models" />
@@ -78,9 +80,11 @@
      <Folder Include="Assets\ExampleAssets\Textures\Props\Jigsaw" />
      <Folder Include="Assets\ExampleAssets\Textures\Drywall" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_PBR\Unity_5_Standard_Shader_(Specular)" />
+     <Folder Include="Assets\EffectOutlines\Effect\SobelOperator" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Humanoids" />
      <Folder Include="Assets\EffectOutlines" />
      <Folder Include="Assets\EffectDithering" />
+     <Folder Include="Assets\EffectOutlines\Effect\DepthAndNormalsDifference" />
      <Folder Include="Assets\ExampleAssets\Textures\Plastic" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms\Arms_Med" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_PBR" />
@@ -99,6 +103,7 @@
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers" />
      <Folder Include="Assets\EffectPixelart\Prefabs" />
      <Folder Include="Assets\TutorialInfo" />
+     <Folder Include="Assets\EffectOutlines\Effect\OutlinesConvolution" />
      <Folder Include="Assets\EffectDithering\Scenes\DitheringDemo" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms_No_Hand\Arms_Hvy" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms_No_Hand\Arms_Lt" />
@@ -114,6 +119,7 @@
      <Folder Include="Assets\ExampleAssets\Models" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Gadgets" />
      <Folder Include="Assets\ExampleAssets\Textures\Props\Construction_Light" />
+     <Folder Include="Assets\EffectOutlines\Effect\CannyEdgeDetector" />
      <Folder Include="Assets\EffectOutlines\Scenes\OulinesDemo" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Flat_PBR" />
      <Folder Include="Assets\ExampleAssets\Textures\Props" />
@@ -129,10 +135,12 @@
      <Folder Include="Assets\EffectPixelart\Example Palettes" />
      <Folder Include="Assets\EffectDithering\Scenes" />
      <Folder Include="Assets\EffectDithering\Example Palettes" />
+     <None Include="Assets\EffectOutlines\Effect\OutlinesConvolution\OutlinesConvolution.hlsl" />
      <Folder Include="Assets\ExampleAssets\Prefabs" />
      <Folder Include="Assets\EffectDithering\Effect" />
      <Folder Include="Assets\ExampleAssets\Textures\Wood" />
      <Folder Include="Assets\EffectDithering\Prefabs" />
+     <Folder Include="Assets\EffectOutlines\Effect\InverseHull" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms_No_Hand" />
      <Folder Include="Assets\EffectDithering\Docs" />
      <Folder Include="Assets\ExampleAssets\Materials" />
@@ -912,10 +920,6 @@
      </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\EffectOutlines\Effect\CannyEdgeDetector\TODO" />
-    <Content Include="Assets\EffectOutlines\Effect\DepthAndNormalsDifference\TODO" />
-    <Content Include="Assets\EffectOutlines\Effect\InverseHull\TODO" />
-    <Content Include="Assets\EffectOutlines\Effect\SobelOperator\TODO" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.

@@ -8,6 +8,7 @@ namespace EffectOutlines.Effect
     [Serializable, VolumeComponentMenuForRenderPipeline("Custom/OutlineEffectComponent", typeof(UniversalRenderPipeline))]
     public partial class OutlineEffectComponent : Common.Scripts.Effect
     {
-        
+        [Header("Outlines")]
+        public MaterialParameter m_OutlinesMaterial = new MaterialParameter(value: null);
     }
 }
