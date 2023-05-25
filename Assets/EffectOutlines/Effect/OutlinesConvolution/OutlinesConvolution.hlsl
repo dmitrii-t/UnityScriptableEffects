@@ -2,41 +2,30 @@
 #define OUTLINES_CONVOLUTION_HLSL_H
 
 
-void OutlinesConvolution_float(UnityTexture2D _Tex, float2 _TexelSize, float2 UV, out float4 Out)
+float4 Convolution(UnityTexture2D _Tex, float2 _TexelSize, float2 texCoordUV, float3 kernel, float2 filter)
 {
-	// float filter[9] = {
-	// 	0., -1., 0.,
-	// 	-1., 4., -1.,
-	// 	0., -1., 0.
-	// };
-
-	float filter[9] = {
-		-1., -1., -1.,
-		-1., 8., -1.,
-		-1., -1., -1.
-	};
-
-	float4 c = 0;
-
-	int x, y, i = 0;
-
-	int xx = 0, yy = 0;
-
-	for(x = 0; x < 5; x++)
+	float4 color = float4(0, 0, 0, 0);
+	
+	for (int i = -1; i <= 1; i++)
 	{
-		xx = x - 2;
-		for(y = 0; y < 5; y++)
-		{
-			yy = y - 2;
-			i = abs(xx) + 3 * abs(yy);
-			c.r += filter[i] * tex2D(_Tex, UV + _TexelSize * float2(xx, yy)).r;
-		}
+		float2 texCoord = texCoordUV + filter * i * _TexelSize;
+		float4 texel = tex2D(_Tex, texCoord);
+		color += texel * kernel[i + 1];
 	}
 
-	
+	return color;
+}
 
+void OutlinesConvolution_float(UnityTexture2D _Tex, float2 _TexelSize, float2 texCoordUV, out float4 Out)
+{
+	const float3 kernel = float3(-1, 0, 1);
 	
-	Out = c;
+	float4 color = float4(0, 0, 0, 0);
+	
+	color += Convolution(_Tex,  _TexelSize,  texCoordUV, kernel, float2(1, 0));
+	color += Convolution(_Tex,  _TexelSize,  texCoordUV, kernel, float2(0, 1));
+	
+	Out = color;
 }
 
 #endif // OUTLINES_CONVOLUTION_HLSL_H

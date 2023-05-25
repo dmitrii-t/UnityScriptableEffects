@@ -19,7 +19,8 @@ namespace EffectOutlines.Effect
         {
             var sourceRT = m_CamTexRT;
 
-            var outlinesMaterial = effect.m_OutlinesMaterial.value;
+            // Adding effect passes
+            var outlinesMaterial = effect.m_OutlineMaterial.value;
             AddOutlinesEffect(ref sourceRT, effect, outlinesMaterial, renderingData, commandBuffer,
                                      condition: outlinesMaterial != null);
 

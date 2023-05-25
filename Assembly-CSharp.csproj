@@ -54,7 +54,7 @@
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartRenderFeature.cs" />
      <Compile Include="Assets\Common\Scripts\Checks.cs" />
-     <Compile Include="Assets\EffectOutlines\Effect\DifferenceOfGaussians\DifferenceOfGaussiansPartial.cs" />
+     <Compile Include="Assets\EffectEdgeOutlines\Rendering\EdgeDetectionVolumeCompoment.cs" />
      <Compile Include="Assets\EffectDithering\Effect\DitheringEffectPass.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartEffectComponent.cs" />
      <Compile Include="Assets\EffectOutlines\Effect\OutlineEffectPass.cs" />
@@ -65,7 +65,6 @@
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_Diffuse" />
      <Folder Include="Assets\EffectPixelart\Textures" />
      <Folder Include="Assets\EffectDithering\Materials" />
-     <None Include="Assets\EffectOutlines\Effect\DifferenceOfGaussians\DifferenceOfGaussians.hlsl" />
      <Folder Include="Assets\Materials" />
      <Folder Include="Assets\EffectPixelart" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Models" />
@@ -81,6 +80,7 @@
      <Folder Include="Assets\ExampleAssets\Textures\Drywall" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_PBR\Unity_5_Standard_Shader_(Specular)" />
      <Folder Include="Assets\EffectOutlines\Effect\SobelOperator" />
+     <Folder Include="Assets\EffectEdgeOutlines\Rendering" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Humanoids" />
      <Folder Include="Assets\EffectOutlines" />
      <Folder Include="Assets\EffectDithering" />
@@ -90,7 +90,6 @@
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_PBR" />
      <Folder Include="Assets\Presets" />
      <Folder Include="Assets\ExampleAssets\Textures\Props\Hammer" />
-     <Folder Include="Assets\EffectOutlines\Effect\DifferenceOfGaussians" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms" />
      <Folder Include="Assets\ExampleAssets\Textures\Props\Paint" />
      <Folder Include="Assets\EffectPixelart\Scenes" />
@@ -121,6 +120,7 @@
      <Folder Include="Assets\ExampleAssets\Textures\Props\Construction_Light" />
      <Folder Include="Assets\EffectOutlines\Effect\CannyEdgeDetector" />
      <Folder Include="Assets\EffectOutlines\Scenes\OulinesDemo" />
+     <Folder Include="Assets\EffectEdgeOutlines" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Flat_PBR" />
      <Folder Include="Assets\ExampleAssets\Textures\Props" />
      <Folder Include="Assets\ExampleAssets\Shaders" />

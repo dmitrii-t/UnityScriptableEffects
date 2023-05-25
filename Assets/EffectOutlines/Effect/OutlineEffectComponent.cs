@@ -9,6 +9,6 @@ namespace EffectOutlines.Effect
     public partial class OutlineEffectComponent : Common.Scripts.Effect
     {
         [Header("Outlines")]
-        public MaterialParameter m_OutlinesMaterial = new MaterialParameter(value: null);
+        public MaterialParameter m_OutlineMaterial = new MaterialParameter(value: null);
     }
 }
