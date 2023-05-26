@@ -3,28 +3,25 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace EffectPixelart.Effect
+[Serializable, VolumeComponentMenuForRenderPipeline("Custom/PixelartEffectComponent", typeof(UniversalRenderPipeline))]
+public class PixelartEffectComponent : Effect
 {
-    [System.Serializable, VolumeComponentMenuForRenderPipeline("Custom/PixelartEffectComponent", typeof(UniversalRenderPipeline))]
-    public class PixelartEffectComponent : Common.Scripts.Effect
-    {
-        [Header("Posterizing")]
-        public MaterialParameter m_PosterizeMaterial = new MaterialParameter(value: null);
+    [Header("Posterizing")]
+    public MaterialParameter m_PosterizeMaterial = new MaterialParameter(value: null);
 
-        public IntParameter m_Posterize = new IntParameter(0);
-        
-        [Header("Downsampling")]
-        public IntParameter m_Downsample = new IntParameter(0);
+    public IntParameter m_Posterize = new IntParameter(0);
 
-        [Header("Dithering")]
-        public MaterialParameter m_DitherMaterial = new MaterialParameter(value: null);
+    [Header("Downsampling")]
+    public IntParameter m_Downsample = new IntParameter(0);
 
-        public Texture2DParameter m_Pattern = new Texture2DParameter(null);
+    [Header("Dithering")]
+    public MaterialParameter m_DitherMaterial = new MaterialParameter(value: null);
 
-        public Texture3DParameter m_Primary = new Texture3DParameter(null);
+    public Texture2DParameter m_Pattern = new Texture2DParameter(null);
 
-        public Texture3DParameter m_Secondary = new Texture3DParameter(null);
+    public Texture3DParameter m_Primary = new Texture3DParameter(null);
 
-        public Vector2Parameter m_Remap = new Vector2Parameter(Vector2.up);
-    }
+    public Texture3DParameter m_Secondary = new Texture3DParameter(null);
+
+    public Vector2Parameter m_Remap = new Vector2Parameter(Vector2.up);
 }

@@ -1,61 +1,58 @@
-﻿using Common.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace EffectDithering.Effect
+
+// [System.Serializable]
+public class DitheringEffectPass : EffectPass<DitheringEffectComponent>
 {
-    // [System.Serializable]
-    public class DitheringEffectPass : EffectPass<DitheringEffectComponent>
+    private readonly int m_PatternID = Shader.PropertyToID("_Pattern");
+
+    private readonly int m_PatternTexSizeID = Shader.PropertyToID("_PatternTexSize");
+
+    private readonly int m_PrimaryID = Shader.PropertyToID("_Primary");
+
+    private readonly int m_SecondaryID = Shader.PropertyToID("_Secondary");
+
+    private readonly int m_RemapID = Shader.PropertyToID("_Remap");
+
+    public DitheringEffectPass()
     {
-        private readonly int m_PatternID = Shader.PropertyToID("_Pattern");
-        
-        private readonly int m_PatternTexSizeID = Shader.PropertyToID("_PatternTexSize");
+        renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+    }
 
-        private readonly int m_PrimaryID = Shader.PropertyToID("_Primary");
+    protected override string GetPassName() => "DitheringEffectPass";
 
-        private readonly int m_SecondaryID = Shader.PropertyToID("_Secondary");
 
-        private readonly int m_RemapID = Shader.PropertyToID("_Remap");
-        
-        public DitheringEffectPass()
+    protected override void ExecutePass(DitheringEffectComponent effect, CommandBuffer commandBuffer, ScriptableRenderContext context, ref RenderingData renderingData)
+    {
+        var sourceRT = m_CamTexRT;
+
+        var material = effect.m_DitherMaterial.value;
+        if (material != null)
         {
-            renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
-        }
+            SetMaterialMainTex(material);
 
-        protected override string GetPassName() => "DitheringEffectPass";
+            // Set other shader properties 
+            var patternTexture = effect.m_Pattern.value;
+            material.SetTexture(m_PatternID, patternTexture);
+            var patternTextureSize = new Vector2(effect.m_Pattern.value.width, effect.m_Pattern.value.height);
+            material.SetVector(m_PatternTexSizeID, patternTextureSize);
 
+            material.SetTexture(m_PrimaryID, effect.m_Primary.value);
+            material.SetTexture(m_SecondaryID, effect.m_Secondary.value);
+            material.SetVector(m_RemapID, effect.m_Remap.value);
 
-        protected override void ExecutePass(DitheringEffectComponent effect, CommandBuffer commandBuffer, ScriptableRenderContext context, ref RenderingData renderingData)
-        {
-            var sourceRT = m_CamTexRT;
-            
-            var material = effect.m_DitherMaterial.value;
-            if (material != null)
-            {
-                SetMaterialMainTex(material);
-                
-                // Set other shader properties 
-                var patternTexture = effect.m_Pattern.value;
-                material.SetTexture(m_PatternID,patternTexture);
-                var patternTextureSize = new Vector2(effect.m_Pattern.value.width, effect.m_Pattern.value.height);
-                material.SetVector(m_PatternTexSizeID, patternTextureSize);
+            // Blit the camera texture to the temporary RT
+            Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
+                                      RenderBufferStoreAction.Store, material, 0);
 
-                material.SetTexture(m_PrimaryID, effect.m_Primary.value);
-                material.SetTexture(m_SecondaryID, effect.m_Secondary.value);
-                material.SetVector(m_RemapID, effect.m_Remap.value);
-                
-                // Blit the camera texture to the temporary RT
-                Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
-                                          RenderBufferStoreAction.Store, material, 0);
+            sourceRT = m_TmpTexRT;
 
-                sourceRT = m_TmpTexRT;
-                
-                Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_CamTexRT);
+            Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_CamTexRT);
 
-                // execute the command buffer
-                context.ExecuteCommandBuffer(commandBuffer);
-            }
+            // execute the command buffer
+            context.ExecuteCommandBuffer(commandBuffer);
         }
     }
 }

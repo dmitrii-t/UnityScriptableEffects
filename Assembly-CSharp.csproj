@@ -46,27 +46,33 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\EffectOutlines\Effect\OutlineEffectRenderFeature.cs" />
-     <Compile Include="Assets\Common\Scripts\Effect.cs" />
+     <Compile Include="Assets\EffectARenderFeature\Rendering\ARenderPassFeature.cs" />
      <Compile Include="Assets\EffectDithering\Effect\DitheringEffectComponent.cs" />
+     <Compile Include="Assets\EffectEdgeOutlines\Rendering\BlitEdgeOutlinesFeature.cs" />
+     <Compile Include="Assets\Common\Scripts\Rendering\BlitMaterialFeature.cs" />
      <Compile Include="Assets\EffectDithering\Effect\DitheringRenderFeature.cs" />
-     <Compile Include="Assets\Common\Scripts\EffectPass.cs" />
+     <Compile Include="Assets\Common\Scripts\Rendering\EffectPass.cs" />
      <Compile Include="Assets\EffectOutlines\Effect\OutlinesConvolution\OutlinesConvolutionPartial.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartRenderFeature.cs" />
-     <Compile Include="Assets\Common\Scripts\Checks.cs" />
-     <Compile Include="Assets\EffectEdgeOutlines\Rendering\EdgeDetectionVolumeCompoment.cs" />
+     <Compile Include="Assets\Common\Scripts\Rendering\Effect.cs" />
+     <Compile Include="Assets\Common\Scripts\Util\Checks.cs" />
      <Compile Include="Assets\EffectDithering\Effect\DitheringEffectPass.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartEffectComponent.cs" />
      <Compile Include="Assets\EffectOutlines\Effect\OutlineEffectPass.cs" />
      <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartEffectPass.cs" />
      <Compile Include="Assets\EffectOutlines\Effect\OutlineEffectComponent.cs" />
+     <Compile Include="Assets\EffectEdgeOutlines\Rendering\EdgeOutlinesVolumeCompoment.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_Diffuse" />
+     <Folder Include="Assets\Scenes" />
      <Folder Include="Assets\EffectPixelart\Textures" />
      <Folder Include="Assets\EffectDithering\Materials" />
      <Folder Include="Assets\Materials" />
      <Folder Include="Assets\EffectPixelart" />
+     <Folder Include="Assets\Common\Scripts\Util" />
+     <None Include="Assets\EffectEdgeOutlines\Shaders\EdgeOutlinesInclude.hlsl" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Models" />
      <Folder Include="Assets\Presets\Defaults" />
      <Folder Include="Assets\EffectOutlines\Effect" />
@@ -78,6 +84,7 @@
      <Folder Include="Assets\EffectPixelart\Effect" />
      <Folder Include="Assets\ExampleAssets\Textures\Props\Jigsaw" />
      <Folder Include="Assets\ExampleAssets\Textures\Drywall" />
+     <Folder Include="Assets\EffectEdgeOutlines\Prefabs" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_PBR\Unity_5_Standard_Shader_(Specular)" />
      <Folder Include="Assets\EffectOutlines\Effect\SobelOperator" />
      <Folder Include="Assets\EffectEdgeOutlines\Rendering" />
@@ -96,8 +103,10 @@
      <Folder Include="Assets\EffectPixelart\Materials" />
      <Folder Include="Assets\Settings" />
      <Folder Include="Assets\ExampleAssets\Textures\Concrete" />
+     <Folder Include="Assets\EffectARenderFeature" />
      <Folder Include="Assets\EffectPixelart\Docs" />
      <Folder Include="Assets\EffectOutlines\Scenes" />
+     <Folder Include="Assets\EffectARenderFeature\Rendering" />
      <Folder Include="Assets\ExampleAssets\Textures\Metal" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers" />
      <Folder Include="Assets\EffectPixelart\Prefabs" />
@@ -120,6 +129,7 @@
      <Folder Include="Assets\ExampleAssets\Textures\Props\Construction_Light" />
      <Folder Include="Assets\EffectOutlines\Effect\CannyEdgeDetector" />
      <Folder Include="Assets\EffectOutlines\Scenes\OulinesDemo" />
+     <Folder Include="Assets\Common\Scripts\Rendering" />
      <Folder Include="Assets\EffectEdgeOutlines" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Flat_PBR" />
      <Folder Include="Assets\ExampleAssets\Textures\Props" />
@@ -134,6 +144,7 @@
      <Folder Include="Assets\Mech_Constructor_Humanoids" />
      <Folder Include="Assets\EffectPixelart\Example Palettes" />
      <Folder Include="Assets\EffectDithering\Scenes" />
+     <Folder Include="Assets\EffectEdgeOutlines\Shaders" />
      <Folder Include="Assets\EffectDithering\Example Palettes" />
      <None Include="Assets\EffectOutlines\Effect\OutlinesConvolution\OutlinesConvolution.hlsl" />
      <Folder Include="Assets\ExampleAssets\Prefabs" />
