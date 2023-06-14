@@ -35,11 +35,12 @@ public class BlitMaterialFeature<T> : ScriptableRendererFeature where T : Effect
             var material = effect.m_Material.value;
             var materialPassIndex = effect.m_MaterialPassIndex.value;
             
+            // Common settings
+            material.SetTexture(m_MainTexID, m_CamRT);
+
             var sourceRT = m_CamRT;
             var targetRT = m_TmpRT;
 
-            material.SetTexture(m_MainTexID, m_CamRT);
-            
             // Blit the camera texture to the temporary RT
             Blitter.BlitCameraTexture(commandBuffer, sourceRT, targetRT, RenderBufferLoadAction.DontCare,
                                       RenderBufferStoreAction.Store, material, materialPassIndex);

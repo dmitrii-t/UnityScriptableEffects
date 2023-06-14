@@ -1,8 +1,9 @@
 ### TODO
-* Make sample rendering feature working
+
 * Outlines
 * Dithering
 
 ### DONE
+* ~~Make sample rendering feature working~~ Always check what URP Asset is used in Quality Settings (as it's )
 * ~~Downsampling~~
 * ~~Posterizing~~

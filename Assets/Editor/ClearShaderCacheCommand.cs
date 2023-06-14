@@ -8,7 +8,7 @@ using UnityEngine;
 public class ClearShaderCacheCommand : MonoBehaviour
 {
     [MenuItem("Tools/Clear shader cache")]
-    public static void ClearShaderCache_Command()
+    public static void ClearShaderCache()
     {
         var shaderCachePath = Path.Combine(Application.dataPath, "../Library/ShaderCache");
         Directory.Delete(shaderCachePath, true);
