@@ -47,7 +47,7 @@
   <ItemGroup>
      <Compile Include="Assets\Editor\SwitchpEdgeOutlinesPipelineAsset.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Editor\ReadmeEditor.cs" />
-     <Compile Include="Assets\Editor\ClearShaderCacheCommand.cs" />
+     <Compile Include="Assets\Editor\Tools.cs" />
      <Folder Include="Assets\Editor" />
      <Folder Include="Assets\TutorialInfo\Scripts\Editor" />
      <Reference Include="UnityEngine">

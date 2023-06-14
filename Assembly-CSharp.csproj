@@ -145,6 +145,7 @@
      <Folder Include="Assets\EffectDithering\Example Palettes" />
      <None Include="Assets\EffectOutlines\Effect\OutlinesConvolution\OutlinesConvolution.hlsl" />
      <Folder Include="Assets\ExampleAssets\Prefabs" />
+     <Folder Include="Assets\Screenshots" />
      <Folder Include="Assets\EffectDithering\Effect" />
      <Folder Include="Assets\ExampleAssets\Textures\Wood" />
      <Folder Include="Assets\EffectDithering\Prefabs" />

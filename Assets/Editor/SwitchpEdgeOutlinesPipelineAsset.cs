@@ -4,7 +4,7 @@ using UnityEngine.Rendering;
 
 public class SwitchpEdgeOutlinesPipelineAsset : MonoBehaviour
 {
-    public static RenderPipelineAsset edgeOutlinesPipelineAsset;
+    public static RenderPipelineAsset edgeOutlinesPipelineAsset; // TODO make it working
 
     [MenuItem("Tools/Enable Edge Outlines")]
     public static void ClearShaderCache()
