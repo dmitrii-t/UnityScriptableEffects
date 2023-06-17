@@ -1,4 +1,4 @@
-﻿public partial class OutlineEffectComponent : Effect
+﻿public partial class OutlineBlitMaterialComponentComponent : BlitMaterialComponent
 {
 
 }

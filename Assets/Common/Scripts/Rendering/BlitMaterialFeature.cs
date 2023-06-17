@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class BlitMaterialFeature<T> : ScriptableRendererFeature where T : Effect
+public class BlitMaterialFeature : ScriptableRendererFeature
 {
     private static readonly int m_MainTexID = Shader.PropertyToID("_MainTex");
     
@@ -30,10 +30,10 @@ public class BlitMaterialFeature<T> : ScriptableRendererFeature where T : Effect
             m_TmpRT = tmpRT;
         }
 
-        private void Blit(ScriptableRenderContext context, CommandBuffer commandBuffer, T effect)
+        private void Blit(ScriptableRenderContext context, CommandBuffer commandBuffer, BlitMaterialComponent blitMaterialComponent)
         {
-            var material = effect.m_Material.value;
-            var materialPassIndex = effect.m_MaterialPassIndex.value;
+            var material = blitMaterialComponent.m_Material.value;
+            var materialPassIndex = blitMaterialComponent.m_MaterialPassIndex.value;
             
             // Common settings
             material.SetTexture(m_MainTexID, m_CamRT);
@@ -58,7 +58,7 @@ public class BlitMaterialFeature<T> : ScriptableRendererFeature where T : Effect
         {
             var stack = VolumeManager.instance.stack;
             
-            var effect = stack.GetComponent<T>();
+            var effect = stack.GetComponent<BlitMaterialComponent>();
             if (effect.IsActive())
             {
                 var commandBuffer = CommandBufferPool.Get(name: this.m_ProfilingName);

@@ -46,23 +46,21 @@
   </ItemGroup>
   <ItemGroup>
      <Compile Include="Assets\EffectOutlines\Effect\OutlineEffectRenderFeature.cs" />
-     <Compile Include="Assets\EffectDithering\Effect\DitheringEffectComponent.cs" />
-     <Compile Include="Assets\EffectEdgeOutlines\Rendering\BlitEdgeOutlinesFeature.cs" />
+     <Compile Include="Assets\EffectPixelart\Effect\PixelartBlitMaterialComponentComponent.cs" />
+     <Compile Include="Assets\Common\Scripts\Rendering\BlitMaterialComponent.cs" />
      <Compile Include="Assets\Common\Scripts\Rendering\BlitMaterialFeature.cs" />
      <Compile Include="Assets\EffectDithering\Effect\DitheringRenderFeature.cs" />
      <Compile Include="Assets\Common\Scripts\Rendering\EffectPass.cs" />
      <Compile Include="Assets\EffectOutlines\Effect\OutlinesConvolution\OutlinesConvolutionPartial.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
+     <Compile Include="Assets\EffectDithering\Effect\DitheringBlitMaterialComponentComponent.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartRenderFeature.cs" />
-     <Compile Include="Assets\Common\Scripts\Rendering\Effect.cs" />
+     <Compile Include="Assets\EffectOutlines\Effect\OutlineBlitMaterialComponentComponent.cs" />
      <Compile Include="Assets\Common\Scripts\Util\Checks.cs" />
      <Compile Include="Assets\EffectDithering\Effect\DitheringEffectPass.cs" />
-     <Compile Include="Assets\EffectPixelart\Effect\PixelartEffectComponent.cs" />
      <Compile Include="Assets\EffectOutlines\Effect\OutlineEffectPass.cs" />
      <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartEffectPass.cs" />
-     <Compile Include="Assets\EffectOutlines\Effect\OutlineEffectComponent.cs" />
-     <Compile Include="Assets\EffectEdgeOutlines\Rendering\EdgeOutlinesVolumeCompoment.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_Diffuse" />
      <Folder Include="Assets\Scenes" />

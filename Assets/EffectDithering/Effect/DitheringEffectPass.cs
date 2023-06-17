@@ -4,7 +4,7 @@ using UnityEngine.Rendering.Universal;
 
 
 // [System.Serializable]
-public class DitheringEffectPass : EffectPass<DitheringEffectComponent>
+public class DitheringEffectPass : EffectPass<DitheringBlitMaterialComponentComponent>
 {
     private readonly int m_PatternID = Shader.PropertyToID("_Pattern");
 
@@ -24,24 +24,24 @@ public class DitheringEffectPass : EffectPass<DitheringEffectComponent>
     protected override string GetPassName() => "DitheringEffectPass";
 
 
-    protected override void ExecutePass(DitheringEffectComponent effect, CommandBuffer commandBuffer, ScriptableRenderContext context, ref RenderingData renderingData)
+    protected override void ExecutePass(DitheringBlitMaterialComponentComponent blitMaterial, CommandBuffer commandBuffer, ScriptableRenderContext context, ref RenderingData renderingData)
     {
         var sourceRT = m_CamTexRT;
 
-        var material = effect.m_DitherMaterial.value;
+        var material = blitMaterial.m_DitherMaterial.value;
         if (material != null)
         {
             SetMaterialMainTex(material);
 
             // Set other shader properties 
-            var patternTexture = effect.m_Pattern.value;
+            var patternTexture = blitMaterial.m_Pattern.value;
             material.SetTexture(m_PatternID, patternTexture);
-            var patternTextureSize = new Vector2(effect.m_Pattern.value.width, effect.m_Pattern.value.height);
+            var patternTextureSize = new Vector2(blitMaterial.m_Pattern.value.width, blitMaterial.m_Pattern.value.height);
             material.SetVector(m_PatternTexSizeID, patternTextureSize);
 
-            material.SetTexture(m_PrimaryID, effect.m_Primary.value);
-            material.SetTexture(m_SecondaryID, effect.m_Secondary.value);
-            material.SetVector(m_RemapID, effect.m_Remap.value);
+            material.SetTexture(m_PrimaryID, blitMaterial.m_Primary.value);
+            material.SetTexture(m_SecondaryID, blitMaterial.m_Secondary.value);
+            material.SetVector(m_RemapID, blitMaterial.m_Remap.value);
 
             // Blit the camera texture to the temporary RT
             Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,

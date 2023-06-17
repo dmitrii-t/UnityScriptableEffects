@@ -2,7 +2,7 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public abstract class EffectPass<T> : ScriptableRenderPass where T : Effect
+public abstract class EffectPass<T> : ScriptableRenderPass where T : BlitMaterialComponent
 {
     private readonly int m_MainTexID = Shader.PropertyToID("_MainTex");
 

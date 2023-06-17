@@ -2,7 +2,7 @@
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-public class OutlineEffectPass : EffectPass<OutlineEffectComponent>
+public class OutlineEffectPass : EffectPass<OutlineBlitMaterialComponentComponent>
 {
     public OutlineEffectPass()
     {
@@ -11,14 +11,14 @@ public class OutlineEffectPass : EffectPass<OutlineEffectComponent>
 
     protected override string GetPassName() => "OutlineEffectPass";
 
-    protected override void ExecutePass(OutlineEffectComponent effect, CommandBuffer commandBuffer,
+    protected override void ExecutePass(OutlineBlitMaterialComponentComponent blitMaterial, CommandBuffer commandBuffer,
         ScriptableRenderContext context, ref RenderingData renderingData)
     {
         var sourceRT = m_CamTexRT;
 
         // Adding effect passes
-        var outlinesMaterial = effect.m_OutlineMaterial.value;
-        AddOutlinesEffect(ref sourceRT, effect, outlinesMaterial, renderingData, commandBuffer,
+        var outlinesMaterial = blitMaterial.m_OutlineMaterial.value;
+        AddOutlinesEffect(ref sourceRT, blitMaterial, outlinesMaterial, renderingData, commandBuffer,
                           condition: outlinesMaterial != null);
 
         // render back to teh camera RT
@@ -31,7 +31,7 @@ public class OutlineEffectPass : EffectPass<OutlineEffectComponent>
         }
     }
 
-    private bool AddOutlinesEffect(ref RTHandle sourceRT, OutlineEffectComponent effect,
+    private bool AddOutlinesEffect(ref RTHandle sourceRT, OutlineBlitMaterialComponentComponent blitMaterial,
         Material outlinesMaterial, RenderingData renderingData, CommandBuffer commandBuffer, bool condition)
     {
         if (condition)

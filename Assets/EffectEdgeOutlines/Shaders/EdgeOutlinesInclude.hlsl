@@ -30,21 +30,21 @@
 // Higher values mean the algorithm detected more of an edge
 
 // These are points to sample relative to the starting point
-static float2 sobelSamplePoints[9] = {
+static float2 sobelOffsets[9] = {
     float2(-1, 1), float2(0, 1), float2(1, 1),
     float2(-1, 0), float2(0, 0), float2(1, 0),
     float2(-1, -1), float2(0, -1), float2(1, -1),
 };
 
 // Weights for the x component
-static float sobelXMatrix[9] = {
+static float sobelHorizontalEdgeMatrix[9] = {
     1, 0, -1,
     2, 0, -2,
     1, 0, -1
 };
 
 // Weights for the y component
-static float sobelYMatrix[9] = {
+static float sobelVerticalEdgeMatrix[9] = {
     1, 2, 1,
     0, 0, 0,
     -1, -2, -1
@@ -56,8 +56,8 @@ void DepthSobel_float(float2 UV, float Thickness, out float Out) {
     // We can unroll this loop to make it more efficient
     // The compiler is also smart enough to remove the i=4 iteration, which is always zero
     [unroll] for (int i = 0; i < 9; i++) {
-        float depth = SHADERGRAPH_SAMPLE_SCENE_DEPTH(UV + sobelSamplePoints[i] * Thickness);
-        sobel += depth * float2(sobelXMatrix[i], sobelYMatrix[i]);
+        float depth = SHADERGRAPH_SAMPLE_SCENE_DEPTH(UV + sobelOffsets[i] * Thickness);     // calculate the color 
+        sobel += depth * float2(sobelHorizontalEdgeMatrix[i], sobelVerticalEdgeMatrix[i]);  // apply sobel wights
     }
     // Get the final sobel value
     Out = length(sobel);
@@ -73,9 +73,9 @@ void ColorSobel_float(float2 UV, float Thickness, out float Out) {
     // The compiler is also smart enough to remove the i=4 iteration, which is always zero
     [unroll] for (int i = 0; i < 9; i++) {
         // Sample the scene color texture
-        float3 rgb = SHADERGRAPH_SAMPLE_SCENE_COLOR(UV + sobelSamplePoints[i] * Thickness);
+        float3 rgb = SHADERGRAPH_SAMPLE_SCENE_COLOR(UV + sobelOffsets[i] * Thickness);
         // Create the kernel for this iteration
-        float2 kernel = float2(sobelXMatrix[i], sobelYMatrix[i]);
+        float2 kernel = float2(sobelHorizontalEdgeMatrix[i], sobelVerticalEdgeMatrix[i]);
         // Accumulate samples for each color
         sobelR += rgb.r * kernel;
         sobelG += rgb.g * kernel;
