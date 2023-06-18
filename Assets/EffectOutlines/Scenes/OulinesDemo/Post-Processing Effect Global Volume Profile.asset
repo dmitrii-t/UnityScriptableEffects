@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-4044056760672891773
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fa81eed3d000d74cb5e86a55dd625ee, type: 3}
+  m_Name: EdgeDetectionVolumeComponent
+  m_EditorClassIdentifier: 
+  active: 1
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Post-Processing Effect Global Volume Profile
+  m_EditorClassIdentifier: 
+  components:
+  - {fileID: 3632512655158445898}
+  - {fileID: -4044056760672891773}
+--- !u!114 &3632512655158445898
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 04d79b95c7bf499b80e9d411bbf41085, type: 3}
+  m_Name: OutlineEffectComponent
+  m_EditorClassIdentifier: 
+  active: 1
+  m_OutlineMaterial:
+    m_OverrideState: 1
+    m_Value: {fileID: 2100000, guid: 3eb208af32a732743895eda0fa95660f, type: 2}

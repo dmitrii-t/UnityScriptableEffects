@@ -1,55 +1,58 @@
-﻿using Common.Scripts;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 
-namespace EffectDithering.Effect
+
+// [System.Serializable]
+public class DitheringEffectPass : EffectPass<DitheringBlitMaterialComponentComponent>
 {
-    // [System.Serializable]
-    public class DitheringEffectPass : EffectPass<DitheringEffectComponent>
+    private readonly int m_PatternID = Shader.PropertyToID("_Pattern");
+
+    private readonly int m_PatternTexSizeID = Shader.PropertyToID("_PatternTexSize");
+
+    private readonly int m_PrimaryID = Shader.PropertyToID("_Primary");
+
+    private readonly int m_SecondaryID = Shader.PropertyToID("_Secondary");
+
+    private readonly int m_RemapID = Shader.PropertyToID("_Remap");
+
+    public DitheringEffectPass()
     {
-        private readonly int m_PatternID = Shader.PropertyToID("_Pattern");
-        
-        private readonly int m_PatternTexSizeID = Shader.PropertyToID("_PatternTexSize");
+        renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
+    }
 
-        private readonly int m_PrimaryID = Shader.PropertyToID("_Primary");
+    protected override string GetPassName() => "DitheringEffectPass";
 
-        private readonly int m_SecondaryID = Shader.PropertyToID("_Secondary");
 
-        private readonly int m_RemapID = Shader.PropertyToID("_Remap");
-        
-        public DitheringEffectPass()
+    protected override void ExecutePass(DitheringBlitMaterialComponentComponent blitMaterial, CommandBuffer commandBuffer, ScriptableRenderContext context, ref RenderingData renderingData)
+    {
+        var sourceRT = m_CamTexRT;
+
+        var material = blitMaterial.m_DitherMaterial.value;
+        if (material != null)
         {
-            renderPassEvent = RenderPassEvent.BeforeRenderingPostProcessing;
-        }
+            SetMaterialMainTex(material);
 
-        protected override string GetPassName() => "Dithering Effect Pass";
+            // Set other shader properties 
+            var patternTexture = blitMaterial.m_Pattern.value;
+            material.SetTexture(m_PatternID, patternTexture);
+            var patternTextureSize = new Vector2(blitMaterial.m_Pattern.value.width, blitMaterial.m_Pattern.value.height);
+            material.SetVector(m_PatternTexSizeID, patternTextureSize);
 
+            material.SetTexture(m_PrimaryID, blitMaterial.m_Primary.value);
+            material.SetTexture(m_SecondaryID, blitMaterial.m_Secondary.value);
+            material.SetVector(m_RemapID, blitMaterial.m_Remap.value);
 
-        public override void Execute(ScriptableRenderContext context, ref RenderingData renderingData)
-        {
-            var stack = VolumeManager.instance.stack;
-            var effect = stack.GetComponent<DitheringEffectComponent>();
+            // Blit the camera texture to the temporary RT
+            Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_TmpTexRT, RenderBufferLoadAction.DontCare,
+                                      RenderBufferStoreAction.Store, material, 0);
 
-            if (effect.IsActive())
-            {
-                var material = effect.m_DitherMaterial.value;
-                if (material != null)
-                {
-                    SetMainTextureProperties(material);
-                
-                    var patternTexture = effect.m_Pattern.value;
-                    material.SetTexture(m_PatternID,patternTexture);
-                    var patternTextureSize = new Vector2(effect.m_Pattern.value.width, effect.m_Pattern.value.height);
-                    material.SetVector(m_PatternTexSizeID, patternTextureSize);
+            sourceRT = m_TmpTexRT;
 
-                    material.SetTexture(m_PrimaryID, effect.m_Primary.value);
-                    material.SetTexture(m_SecondaryID, effect.m_Secondary.value);
-                    material.SetVector(m_RemapID, effect.m_Remap.value);
-                }
-                
-                ExecuteWithMaterial(context, effect.m_DitherMaterial.value, ref renderingData);
-            }
+            Blitter.BlitCameraTexture(commandBuffer, sourceRT, m_CamTexRT);
+
+            // execute the command buffer
+            context.ExecuteCommandBuffer(commandBuffer);
         }
     }
 }

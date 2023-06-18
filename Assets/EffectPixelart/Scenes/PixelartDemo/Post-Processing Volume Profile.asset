@@ -1,42 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-6241601395414480545
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 215f169a615ca574c92ce392bc39c723, type: 3}
-  m_Name: PixelartEffectComponent
-  m_EditorClassIdentifier: 
-  active: 1
-  m_PosterizeMaterial:
-    m_OverrideState: 0
-    m_Value: {fileID: 2100000, guid: 3b5f32a5fa1a1854596a1d2e6dccf99c, type: 2}
-  m_Posterize:
-    m_OverrideState: 0
-    m_Value: 128
-  m_Downsample:
-    m_OverrideState: 1
-    m_Value: 1
-  m_DitherMaterial:
-    m_OverrideState: 0
-    m_Value: {fileID: 2100000, guid: 79b68e9d1e70b814280401c669c39474, type: 2}
-  m_Pattern:
-    m_OverrideState: 1
-    m_Value: {fileID: 2800000, guid: ba8b02719e4bcf248b93bafe9668e3b8, type: 3}
-  m_Primary:
-    m_OverrideState: 1
-    m_Value: {fileID: 11700000, guid: b898ce4021ad3af478905d70e937fef0, type: 2}
-  m_Secondary:
-    m_OverrideState: 1
-    m_Value: {fileID: 11700000, guid: bd5c595d926e7f145b84a3789723905e, type: 2}
-  m_Remap:
-    m_OverrideState: 1
-    m_Value: {x: 0, y: 1}
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49,5 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
   m_Name: Post-Processing Volume Profile
   m_EditorClassIdentifier: 
-  components:
-  - {fileID: -6241601395414480545}
+  components: []

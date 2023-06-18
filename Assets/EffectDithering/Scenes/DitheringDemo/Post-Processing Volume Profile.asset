@@ -27,7 +27,7 @@ MonoBehaviour:
   m_Name: DitheringEffectComponent
   m_EditorClassIdentifier: 
   active: 1
-  m_Material:
+  m_DitherMaterial:
     m_OverrideState: 1
     m_Value: {fileID: 2100000, guid: 79069b5bcee6cfe48a0395c122024da5, type: 2}
   m_Pattern:
@@ -42,6 +42,3 @@ MonoBehaviour:
   m_Remap:
     m_OverrideState: 1
     m_Value: {x: 0, y: 1}
-  m_PixelRate:
-    m_OverrideState: 1
-    m_Value: 128
