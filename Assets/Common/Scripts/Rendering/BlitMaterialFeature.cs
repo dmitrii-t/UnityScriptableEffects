@@ -19,6 +19,10 @@ public class BlitMaterialFeature : ScriptableRendererFeature
 
         private RTHandle m_TmpRT;
 
+        private int m_MaterialPassIndex;
+
+        public int materialPassIndex { set => m_MaterialPassIndex = value; }
+
         public BlitMaterialRenderPass(string profilingName) : base()
         {
             m_ProfilingName = profilingName;
@@ -33,8 +37,7 @@ public class BlitMaterialFeature : ScriptableRendererFeature
         private void Blit(ScriptableRenderContext context, CommandBuffer commandBuffer, BlitMaterialComponent blitMaterialComponent)
         {
             var material = blitMaterialComponent.m_Material.value;
-            var materialPassIndex = blitMaterialComponent.m_MaterialPassIndex.value;
-            
+
             // Common settings
             material.SetTexture(m_MainTexID, m_CamRT);
 
@@ -43,7 +46,7 @@ public class BlitMaterialFeature : ScriptableRendererFeature
 
             // Blit the camera texture to the temporary RT
             Blitter.BlitCameraTexture(commandBuffer, sourceRT, targetRT, RenderBufferLoadAction.DontCare,
-                                      RenderBufferStoreAction.Store, material, materialPassIndex);
+                                      RenderBufferStoreAction.Store, material, m_MaterialPassIndex);
 
             sourceRT = m_TmpRT;
             targetRT = m_CamRT;
@@ -80,6 +83,7 @@ public class BlitMaterialFeature : ScriptableRendererFeature
     public class Settings
     {
         public RenderPassEvent renderEvent = RenderPassEvent.AfterRenderingOpaques;
+        public int materialPassIndex = 0;
     }
 
     [SerializeField]
@@ -91,6 +95,7 @@ public class BlitMaterialFeature : ScriptableRendererFeature
     {
         m_BlitMaterialRenderPass = new BlitMaterialRenderPass(name);
         m_BlitMaterialRenderPass.renderPassEvent = settings.renderEvent;
+        m_BlitMaterialRenderPass.materialPassIndex = settings.materialPassIndex;
     }
 
     public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
