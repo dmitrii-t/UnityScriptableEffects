@@ -8,7 +8,7 @@ public class BlitMaterialComponent : VolumeComponent, IPostProcessComponent
 
     public bool IsActive()
     {
-        return m_Material.value != null;
+        return active && m_Material.value != null;
     }
 
     public bool IsTileCompatible()

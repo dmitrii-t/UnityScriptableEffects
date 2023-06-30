@@ -84,6 +84,7 @@ public class BlitMaterialFeature : ScriptableRendererFeature
     {
         public RenderPassEvent renderEvent = RenderPassEvent.AfterRenderingOpaques;
         public int materialPassIndex = 0;
+        public bool isGameCameraOnly = false;
     }
 
     [SerializeField]
@@ -101,10 +102,11 @@ public class BlitMaterialFeature : ScriptableRendererFeature
     public override void SetupRenderPasses(ScriptableRenderer renderer, in RenderingData renderingData)
     {
         // only run this pass on the game camera
-        // if (renderingData.cameraData.cameraType != CameraType.Game)
-        // {
-        //     return;
-        // }
+        if (settings.isGameCameraOnly && renderingData.cameraData.cameraType != CameraType.Game)
+        {
+            Debug.Log($"${name} feature disabled");
+            return;
+        }
 
         // Setting up camera color RT
         var descriptor = renderingData.cameraData.cameraTargetDescriptor;
@@ -120,11 +122,11 @@ public class BlitMaterialFeature : ScriptableRendererFeature
     public override void AddRenderPasses(ScriptableRenderer renderer, ref RenderingData renderingData)
     {
         // only run this pass on the game camera
-        // if (renderingData.cameraData.cameraType != CameraType.Game)
-        // {
-        //     Debug.Log($"Disabling ${name} feature");
-        //     return;
-        // }
+        if (settings.isGameCameraOnly && renderingData.cameraData.cameraType != CameraType.Game)
+        {
+            Debug.Log($"${name} feature disabled");
+            return;
+        }
         
         renderer.EnqueuePass(m_BlitMaterialRenderPass);
     }
