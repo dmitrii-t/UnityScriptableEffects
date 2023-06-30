@@ -7,7 +7,7 @@
 
 struct CustomLightingData
 {
-	float3 DitherPattern;
+	float3 DitherValue;
 	
 	// Position and orientation
 	float3 normalWS;
@@ -25,7 +25,7 @@ float3 CustomLightHandling(CustomLightingData d, Light light)
 	float diffuse = saturate(dot(d.normalWS, light.direction));
 
 	float3 c = d.albedo * radiance * diffuse;
-	float color = step(d.DitherPattern, c);
+	float color = step(d.DitherValue, c);
 	
 	return color;
 }
@@ -54,10 +54,10 @@ float3 CalculateCustomLighting(CustomLightingData d)
 
 
 // Wrapper function to call from CustomFunction node
-void CalculateCustomLighting_float(float3 DitherPattern, float3 Normal, float3 Albedo, out float3 Color)
+void CalculateCustomLighting_float(float3 DitherValue, float3 Normal, float3 Albedo, out float3 Color)
 {
 	CustomLightingData d;
-	d.DitherPattern = DitherPattern;
+	d.DitherValue = DitherValue;
 	d.normalWS = Normal;
 	d.albedo = Albedo;
 
@@ -65,7 +65,7 @@ void CalculateCustomLighting_float(float3 DitherPattern, float3 Normal, float3 A
 }
 
 // Wrapper function to call from CustomFunction node
-void CalculateCustomLighting_half(float3 DitherPattern, float3 Normal, half3 Albedo, out half3 Color)
+void CalculateCustomLighting_half(float3 DitherValue, float3 Normal, half3 Albedo, out half3 Color)
 {
 	// Default
 	Color = half3(1.,0.,0.);

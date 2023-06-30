@@ -88,6 +88,7 @@
      <Folder Include="Assets\ExampleAssets\Textures\Props\Hammer" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms" />
      <Folder Include="Assets\ExampleAssets\Textures\Props\Paint" />
+     <Folder Include="Assets\EffectShadowDithering\Textures" />
      <Folder Include="Assets\EffectPixelart\Scenes" />
      <Folder Include="Assets\EffectPixelart\Materials" />
      <Folder Include="Assets\Settings" />
