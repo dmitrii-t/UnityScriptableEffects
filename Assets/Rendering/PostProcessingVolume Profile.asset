@@ -45,7 +45,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8d8645c36643e195b3a61ec12ba19b, type: 3}
   m_Name: BlitMaterialComponent
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_Material:
     m_OverrideState: 1
     m_Value: {fileID: 2100000, guid: 75b3d216ad177af4080ed534a8903107, type: 2}
