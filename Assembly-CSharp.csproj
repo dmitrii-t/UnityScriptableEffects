@@ -139,6 +139,7 @@
      <Folder Include="Assets\EffectDithering\Effect" />
      <Folder Include="Assets\ExampleAssets\Textures\Wood" />
      <Folder Include="Assets\EffectDithering\Prefabs" />
+     <Folder Include="Assets\Referncies" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms_No_Hand" />
      <Folder Include="Assets\EffectDithering\Docs" />
      <Folder Include="Assets\ExampleAssets\Materials" />
