@@ -45,23 +45,21 @@
     <Analyzer Include="C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\Tools\Unity.SourceGenerators\Unity.Properties.SourceGenerator.dll" />
   </ItemGroup>
   <ItemGroup>
+     <Compile Include="Assets\Rendering\DownsamplingComponent.cs" />
+     <Compile Include="Assets\Rendering\DownsamplingFeature.cs" />
+     <Compile Include="Assets\Rendering\BlitMaterialComponent.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartBlitMaterialComponentComponent.cs" />
-     <Compile Include="Assets\Common\Scripts\Rendering\BlitMaterialComponent.cs" />
-     <Compile Include="Assets\Common\Scripts\Rendering\BlitMaterialFeature.cs" />
-     <Compile Include="Assets\EffectDithering\Effect\DitheringRenderFeature.cs" />
-     <Compile Include="Assets\Common\Scripts\Rendering\EffectPass.cs" />
      <Compile Include="Assets\TutorialInfo\Scripts\Readme.cs" />
-     <Compile Include="Assets\EffectDithering\Effect\DitheringBlitMaterialComponentComponent.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartRenderFeature.cs" />
      <Compile Include="Assets\Common\Scripts\Util\Checks.cs" />
-     <Compile Include="Assets\EffectDithering\Effect\DitheringEffectPass.cs" />
+     <Compile Include="Assets\Rendering\BlitMaterialFeature.cs" />
      <Compile Include="Assets\Scripts\SimpleCameraController.cs" />
      <Compile Include="Assets\EffectPixelart\Effect\PixelartEffectPass.cs" />
+     <Compile Include="Assets\Rendering\EffectPass.cs" />
      <Folder Include="Assets" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_Diffuse" />
      <Folder Include="Assets\Scenes" />
      <Folder Include="Assets\EffectPixelart\Textures" />
-     <Folder Include="Assets\EffectDithering\Materials" />
      <Folder Include="Assets\Materials" />
      <Folder Include="Assets\EffectPixelart" />
      <Folder Include="Assets\Common\Scripts\Util" />
@@ -80,7 +78,6 @@
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_PBR\Unity_5_Standard_Shader_(Specular)" />
      <Folder Include="Assets\Rendering" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Humanoids" />
-     <Folder Include="Assets\EffectDithering" />
      <Folder Include="Assets\ExampleAssets\Textures\Plastic" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms\Arms_Med" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Materials\Camouflage_PBR" />
@@ -99,19 +96,17 @@
      <Folder Include="Assets\EffectShadowDithering" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers" />
      <Folder Include="Assets\EffectPixelart\Prefabs" />
+     <Folder Include="Assets\Rendering\Settings" />
      <Folder Include="Assets\TutorialInfo" />
-     <Folder Include="Assets\EffectDithering\Scenes\DitheringDemo" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms_No_Hand\Arms_Hvy" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms_No_Hand\Arms_Lt" />
      <Folder Include="Assets\ExampleAssets" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Animations" />
      <Folder Include="Assets\EffectPixelart\Scenes\PixelartDemo" />
-     <None Include="Assets\EffectDithering\Effect\BayerDithering.hlsl" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\No_Skin" />
      <Folder Include="Assets\TutorialInfo\Scripts" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs" />
      <Folder Include="Assets\TutorialInfo\Icons" />
-     <Folder Include="Assets\EffectDithering\Textures" />
      <Folder Include="Assets\ExampleAssets\Models" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Gadgets" />
      <Folder Include="Assets\ExampleAssets\Textures\Props\Construction_Light" />
@@ -131,17 +126,12 @@
      <None Include="Assets\Mech_Constructor_Humanoids\Readme.txt" />
      <Folder Include="Assets\Mech_Constructor_Humanoids" />
      <Folder Include="Assets\EffectPixelart\Example Palettes" />
-     <Folder Include="Assets\EffectDithering\Scenes" />
      <Folder Include="Assets\EffectEdgeOutlines\Shaders" />
-     <Folder Include="Assets\EffectDithering\Example Palettes" />
      <Folder Include="Assets\ExampleAssets\Prefabs" />
      <Folder Include="Assets\Screenshots" />
-     <Folder Include="Assets\EffectDithering\Effect" />
      <Folder Include="Assets\ExampleAssets\Textures\Wood" />
-     <Folder Include="Assets\EffectDithering\Prefabs" />
      <Folder Include="Assets\Referncies" />
      <Folder Include="Assets\Mech_Constructor_Humanoids\Prefabs\Walkers\Arms_No_Hand" />
-     <Folder Include="Assets\EffectDithering\Docs" />
      <Folder Include="Assets\ExampleAssets\Materials" />
      <Reference Include="UnityEngine">
      <HintPath>C:\Program Files\Unity\Hub\Editor\2022.3.4f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>

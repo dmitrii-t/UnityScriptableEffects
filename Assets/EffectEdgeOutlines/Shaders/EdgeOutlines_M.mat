@@ -48,7 +48,7 @@ Material:
     - _ColorStrength: 0
     - _ColorThickness: 0
     - _ColorThreshold: 0
-    - _DepthStrength: 0.863
+    - _DepthStrength: 0.856
     - _DepthThickness: 0.00091
     - _DepthThreshold: 0.00123
     m_Colors:
