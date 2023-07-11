@@ -43,13 +43,13 @@ float3 CustomLightHandling(CustomLightingData d, Light light)
 	// specular lighting
 	float specularDot = saturate(dot(d.normalWS, normalize(light.direction + d.viewDirectionWS)));
 	float specular = pow(specularDot, GetSmoothnessPower(d.smoothness)) * diffuse;
-	
-	float3 c = d.albedo * radiance * (diffuse + specular);
 
-	// apply dithering
-	float color = step(d.ditherValue, c);
-	
-	return color;
+	float3 s = radiance * (diffuse + specular);
+
+	// apply dithered shadow
+	float3 c = d.albedo * step(d.ditherValue, s);
+
+	return c;
 }
 #endif
 
